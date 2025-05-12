@@ -1,5 +1,8 @@
 import React from "react";
+import Hero from "@/components/Hero/Hero";
 
 export default function Page(): React.ReactNode {
-    return <h1>First page</h1>
+    return (<>
+        <Hero />
+    </>)
 }

@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.wrapper {
+    @apply w-full min-h-screen overflow-hidden;
+}   
+
+.container {
+    @apply max-w-container mx-auto px-4;
+}
+
+h1{
+    @apply text-lg font-bold
+}
+
