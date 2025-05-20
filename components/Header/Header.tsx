@@ -1,11 +1,34 @@
 import React from "react";
+import { HeaderMenuItem } from "./HeaderTypes";
+import { getMainMenu } from "helpers/menus";
+import { getWebsiteName } from "helpers/utils";
 
 export default function Header(): React.ReactNode {
-    return <header>
-        <div className="container">
-            <div className="logo">
-                <img src="/images/logo.png" alt="logo" />
+    const menu: HeaderMenuItem[] = getMainMenu();
+    return (
+        <header className="shadow-md">
+            <div className="container flex justify-between items-center">
+                <div className="logo text-4xl py-4">
+                    <span className="mdi mdi-account-circle"></span>
+                    <span className="px-4 font-bold">{ getWebsiteName() }</span>
+                </div>
+                <nav>
+                    <ul className="flex gap-4 py-4">
+                        { menu.map( (item, index) => {
+                            return (
+                                <li key={index}>
+                                    <a href={item.link}>{item.name}</a>
+                                    { item.hasMenu && (
+                                        <ul className="flex gap-4">
+                                            { item.subMenu?.map( (child, childIndex) => <li key={childIndex}><a href={child.link}>{child.name}</a></li>)}
+                                        </ul>
+                                    )}
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </nav>
             </div>
-        </div>
-    </header>
+        </header>
+    );
 }
