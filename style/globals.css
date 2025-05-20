@@ -1,3 +1,5 @@
+@import url("@mdi/font/css/materialdesignicons.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,6 +13,6 @@
 }
 
 h1{
-    @apply text-lg font-bold
+    @apply text-xl font-bold
 }
 
