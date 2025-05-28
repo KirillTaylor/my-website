@@ -1,12 +1,12 @@
 import React from "react";
-import { HeaderMenuItem } from "./HeaderTypes";
-import { getMainMenu } from "helpers/menus";
+import { HeaderMenuItem } from "./IHeader";
+import { getMainMenu } from "helpers/content";
 import { getWebsiteName } from "helpers/utils";
 
 export default function Header(): React.ReactNode {
     const menu: HeaderMenuItem[] = getMainMenu();
     return (
-        <header className="shadow-md">
+        <header className="shadow-md relative z-50">
             <div className="container flex justify-between items-center">
                 <div className="logo text-4xl py-4">
                     <span className="mdi mdi-account-circle"></span>

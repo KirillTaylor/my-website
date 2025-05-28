@@ -1,12 +1,13 @@
 import React from "react";
 import Socials from "components/shared/Socials/Socials";
-import { getMainMenu } from "helpers/menus";
 import { getWebsiteName } from "helpers/utils";
+import { getMainMenu } from "helpers/content";
+
 const Footer = () => {
     const currentYear = new Date().getFullYear();
     const footerMenu = getMainMenu();
     return (
-        <div className="footer mt-12">
+        <div className="footer mt-12 bg-sky-900 text-white py-10">
             <div className="container">
                 <div className="row">
                     <div className="col-10">

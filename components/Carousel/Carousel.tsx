@@ -47,7 +47,7 @@ const Carousel = (props: CarouselProps) => {
         setSlidesLength(props.slides?.length ?? 0);
     }, [props.slides]);
     return (
-        <div>
+        <div className="container">
             <div className="carousel-container flex flex-col justify-center items-center">
                 <div className="carousel-nav carousel-prev-arrow" onClick={() => handleSlideChange(currentSlide - 1)}>
                     <i className="mdi mdi-chevron-left"></i>
