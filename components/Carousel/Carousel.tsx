@@ -47,12 +47,12 @@ const Carousel = (props: CarouselProps) => {
         setSlidesLength(props.slides?.length ?? 0);
     }, [props.slides]);
     return (
-        <div className="container">
+        <div className="container my-10">
             <div className="carousel-container flex flex-col justify-center items-center">
                 <div className="carousel-nav carousel-prev-arrow" onClick={() => handleSlideChange(currentSlide - 1)}>
                     <i className="mdi mdi-chevron-left"></i>
                 </div>
-                <div className="carousel-viewport">
+                <div className="carousel-viewport border-2 border-gray-300 rounded-md">
                     <div className="carousel-wrapper flex" style={style}>
                         {props.slides && props.slides.map((slide, index) => (
                             <CarouselSlide key={index} {...slide} style={singleSlideStyle} />

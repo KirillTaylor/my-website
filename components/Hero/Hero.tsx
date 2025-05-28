@@ -17,7 +17,7 @@ export default function Hero(): React.ReactNode {
                     <h1 className="text-4xl">{heroContent.title}</h1>
                 </div>
                 <div className="btn-cta text-center m-12">
-                    <button className="bg-sky-900 text-white px-4 py-2 rounded-md">{`Get started`}</button>
+                    <button className="btn-primary">{`Get started`}</button>
                 </div>
             </div>
         </div>
