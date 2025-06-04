@@ -1,10 +1,11 @@
 import React from "react";
 import { getHeroContent } from "helpers/content";
+import Button from '@mui/material/Button';
 
 export default function Hero(): React.ReactNode {
     const heroContent = getHeroContent();
     return (
-        <div className="hero-background bg-cover bg-center h-[30vh] flex" style={{
+        <div className="hero-background bg-cover bg-center h-[40vh] flex" style={{
             backgroundImage: `url(${heroContent.image})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -16,8 +17,11 @@ export default function Hero(): React.ReactNode {
                 <div className="hero-title text-center m-4 mt-12">
                     <h1 className="text-4xl">{heroContent.title}</h1>
                 </div>
+                <div className="hero-description text-center m-4 w-[50%]">
+                    <p className="text-xl">{heroContent.description}</p>
+                </div>
                 <div className="btn-cta text-center m-12">
-                    <button className="btn-primary">{`Get started`}</button>
+                    <Button variant="contained" color="primary">{`Get started`}</Button>
                 </div>
             </div>
         </div>

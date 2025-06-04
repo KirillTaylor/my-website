@@ -6,11 +6,30 @@ export const getBannerContent = (): IBanner => {
     return {
         items: [
             {
-                id: 1,
-                title: "Item 1",
-                image: "https://www.drupal.org/files/project-images/nextjs-icon-dark-background.png",
-                link: "https://www.google.com",
+                id: 0,
+                title: "PHP",
+                image: "/assets/img/php.png",
+                link: "https://www.php.net/",
             },
+            {
+                id: 1,
+                title: "Next.js",
+                image: "https://www.drupal.org/files/project-images/nextjs-icon-dark-background.png",
+                link: "https://nextjs.org/",
+            },
+            {
+                id: 2,
+                title: "React",
+                image: "/assets/img/react.png",
+                link: "https://react.dev/",
+            },      
+            {
+                id: 3,
+                title: "Vue.js",
+                image: "/assets/img/vue.js.png",
+                link: "https://vuejs.org/",
+            },
+            
         ]
     }
 }
@@ -78,7 +97,7 @@ export const getHeroContent = () => {
     return {
         image: "/assets/img/hero-bg.jpg",
         title: "Let us elev8 your business",
-        description: "This is a description of the hero content",
+        description: "Looking for a partner to elevate your business? With over 13 years of experience in the industry, we are confident that we can help you achieve your goals.",
     }
 };
 

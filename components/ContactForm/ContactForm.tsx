@@ -1,6 +1,136 @@
-import React from "react";
+'use client'
+
+import React, { useState } from "react";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import { validateEmail, validatePhone } from "helpers/input";
+import { capitalize } from "@mui/material";
+
+// Field safety for type iteration
+type Field = {
+    name: string;
+    label: string;
+    multiline?: boolean;
+    rows?: number;
+    required?: boolean;
+}
 
 const ContactForm = () => {
+
+    // Field array
+    const fieldsArray: Field[] = [
+        {
+            name: 'name',
+            label: 'Name',
+            multiline: false,
+            required: true
+        },
+        {
+            name: 'email',
+            label: 'Email',
+            multiline: false,
+            required: true
+        },
+        {
+            name: 'phone',
+            label: 'Phone',
+            multiline: false,
+            required: true
+        },
+        {
+            name: 'message',
+            label: 'Message',
+            multiline: true,
+            rows: 5,
+            required: true
+        }
+    ];
+
+    // Use the array above to create a state for errors on all fields
+    const errorsState = fieldsArray.map(field => ({ [field.name]: '' })).reduce((acc, curr) => ({ ...acc, ...curr }), {});
+    errorsState.formErrors = '';
+    const valuesState = fieldsArray.map(field => ({ [field.name]: '' })).reduce((acc, curr) => ({ ...acc, ...curr }), {});
+
+    // Field errors state
+    const [errors, setErrors] = useState(errorsState);
+    // Field values state
+    const [values, setValues] = useState(valuesState);
+
+    const [formStatus, setFormStatus] = useState({
+        type: '',
+        message: ''
+    });
+
+    // Handle field change
+    const handleOnTextFieldChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormStatus({
+            type: '',
+            message: ''
+        }); 
+
+        // Get the value, required, and name of the field
+        const value = event.target.value;
+        const required = event.target.required;
+        const name = event.target.name;
+
+        if (!value && required) {
+            setErrors(prev => ({
+                ...prev,
+                [name]: 'This field is required'
+            }));
+        } else if (name === 'email' && value && !validateEmail(value)) {
+            setErrors(prev => ({
+                ...prev,
+                [name]: 'Please enter a valid email address'
+            }));
+        } else if (name === 'phone' && value && !validatePhone(value)) {
+            setErrors(prev => ({
+                ...prev,
+                [name]: 'Please enter a valid phone number'
+            }));
+        } else {
+            setErrors(prev => ({
+                ...prev,
+                [name]: ''
+            }));
+
+            setValues(prev => ({
+                ...prev,
+                [name]: value
+            }));
+        }
+    };
+
+    // Handle form submission
+    const handleOnFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        
+        // Reset form errors
+        setFormStatus({
+            type: '',
+            message: ''
+        });
+
+        // Check if there are any field errors
+        const hasFieldErrors = Object.entries(errors).some(([key, value]) => key !== 'formErrors' && value !== '');
+        const hasEmptyFields = Object.values(values).some(value => value === '');
+        
+        if (!hasFieldErrors && !hasEmptyFields) {
+
+            // Handle successful form submission here
+            setFormStatus({
+                type: 'success',
+                message: 'Your message has been sent successfully. We will get back to you as soon as possible.'
+            });
+        } else {
+            setFormStatus({
+                type: 'error',
+                message: 'There was an error with your submission. Please try again.'
+            });
+        }
+    };
+
     return (
         <div className="container flex items-center justify-center min-h-[15vh] py-10 my-10">
             <div className="w-1/2">
@@ -12,25 +142,32 @@ const ContactForm = () => {
                 </p>
             </div>
             <div className="w-1/2 p-10">
-                <form className="contact-form">
-                    <div className="form-group flex flex-col">
-                        <label htmlFor="name">{'Name'}</label>
-                        <input className="form-input" type="text" id="name" name="name" autoComplete="off" />
-                    </div>
-                    <div className="form-group flex flex-col">
-                        <label htmlFor="email">{'Email'}</label>
-                        <input className="form-input" type="email" id="email" name="email" autoComplete="off" />
-                    </div>
-                    <div className="form-group flex flex-col">
-                        <label htmlFor="phone">{'Phone'}</label>
-                        <input className="form-input" type="tel" id="phone" name="phone" autoComplete="off" />
-                    </div>
-                    <div className="form-group flex flex-col">
-                        <label htmlFor="message">{'Message'}</label>    
-                        <textarea className="form-input" id="message" name="message" autoComplete="off" />
-                    </div>
-                    <button className="btn-primary" type="submit">{'Get in touch'}</button>
-                </form>
+                <Box
+                    component="form"
+                    sx={{ '& .MuiTextField-root': { m: 1, width: '75%' }, }}
+                    autoComplete="off"
+                    onSubmit={handleOnFormSubmit}>
+                    {fieldsArray.map((field, index) => (
+                        <div className="flex flex-col" key={index}>
+                            <TextField
+                                name={field.name}
+                                rows={field.rows || 1}
+                                multiline={field.multiline}
+                                size="small"
+                                required={field.required || false}
+                                label={capitalize(field.label)}
+                                onChange={handleOnTextFieldChange}
+                                onBlur={handleOnTextFieldChange}
+                                error={!!errors[field.name]}
+                                helperText={errors[field.name]}
+                                slotProps={{ inputLabel: { required: false } }}
+                            />
+                        </div>
+                    ))}
+                    <Button variant="contained" color="primary" type="submit">{'Get in touch'}</Button>
+                    {formStatus.type === 'success' && <p className="text-green-500">{formStatus.message}</p>}
+                    {formStatus.type === 'error' && <p className="text-red-500">{formStatus.message}</p>}
+                </Box>
             </div>
         </div>
     );
