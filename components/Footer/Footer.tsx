@@ -24,13 +24,15 @@ const Footer = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-2 text-right">
-                        <Socials />
-                    </div>
                 </div>
                 <div className="row">
                     <div className="col-12">
                         <div className="footer-copyright text-center text-sm">All rights reserved &copy; {currentYear}</div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12 text-center">
+                        <Socials />
                     </div>
                 </div>
             </div>
