@@ -13,10 +13,8 @@ export default function Banner(): React.ReactNode {
                     {bannerContent.items.map((item) => (
                         <div key={item.id}>
                             <a href={item.link} target="_blank" rel="noopener noreferrer">
-                                <div className="banner-item mx-4 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                                <div className="banner-item mx-4 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 w-[50px] h-[50px] md:w-[80px] md:h-[80px]"
                                     style={{
-                                        width: '80px',
-                                        height: '80px',
                                         backgroundImage: `url(${item.image})`,
                                         backgroundSize: 'contain',
                                         backgroundPosition: 'center',

@@ -5,6 +5,7 @@ import Carousel from "components/Carousel/Carousel";
 import Banner from "components/Banner/Banner";
 import { getSlides } from "helpers/content";
 import ContactForm from "components/ContactForm/ContactForm";
+import DialogWrapper from "components/DialogWrapper/DialogWrapper";
 
 export default function Page(): React.ReactNode {
     const slides = getSlides();
@@ -14,5 +15,6 @@ export default function Page(): React.ReactNode {
         <ContentBlocks />
         <Carousel slides={slides} />
         <ContactForm />
+        <DialogWrapper />
     </>)
 }
