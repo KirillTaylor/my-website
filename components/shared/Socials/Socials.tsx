@@ -1,4 +1,4 @@
-import { getSocials } from "helpers/content";
+import { getSocials } from "utils/content";
 import React from "react";
 
 export default function Socials(): React.ReactNode {

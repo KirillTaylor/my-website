@@ -12,6 +12,7 @@ import React, { useState, useEffect } from 'react';
 import CarouselSlide from './CarouselSlide';
 import './style.css';
 import { CarouselProps } from './ICarousel';
+import { Typography } from '@mui/material';
 
 const Carousel = (props: CarouselProps) => {
     // State to track the current slide
@@ -37,7 +38,7 @@ const Carousel = (props: CarouselProps) => {
 
     // Handle single slide positioning inside the viewport
     const singleSlideStyle = {
-        width: (slidesLength > 0 ? wrapperWidth / (slidesLength * 2) : 100) + '%',
+        width: (slidesLength > 1 ? wrapperWidth / (slidesLength * 2) : 100) + '%',
         left: '-' + currentSlide * (wrapperWidth / (slidesLength * 2)) + '%',
     };
 
@@ -48,20 +49,21 @@ const Carousel = (props: CarouselProps) => {
     }, [props.slides]);
     return (
         <div className="container my-10">
+            <Typography variant="h4">{'Our Clients'}</Typography>
             <div className="carousel-container flex flex-col justify-center items-center">
-                <div className="carousel-nav carousel-prev-arrow" onClick={() => handleSlideChange(currentSlide - 1)}>
+                {slidesLength > 1 && <div className="carousel-nav carousel-prev-arrow" onClick={() => handleSlideChange(currentSlide - 1)}>
                     <i className="mdi mdi-chevron-left"></i>
-                </div>
-                <div className="carousel-viewport border-2 border-gray-300 rounded-md">
+                </div>}
+                <div className="carousel-viewport">
                     <div className="carousel-wrapper flex" style={style}>
                         {props.slides && props.slides.map((slide, index) => (
                             <CarouselSlide key={index} {...slide} style={singleSlideStyle} />
                         ))}
                     </div>
                 </div>
-                <div className="carousel-nav carousel-next-arrow" onClick={() => handleSlideChange(currentSlide + 1)}>
+                {slidesLength > 1 && <div className="carousel-nav carousel-next-arrow" onClick={() => handleSlideChange(currentSlide + 1)}>
                     <i className="mdi mdi-chevron-right"></i>
-                </div>
+                </div>}
             </div>
             <div className="carousel-dots flex justify-center items-center">
                 {props.slides && props.slides.map((slide, index) => (

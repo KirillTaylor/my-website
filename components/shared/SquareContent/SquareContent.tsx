@@ -6,6 +6,7 @@ interface SquareContentProps {
     image?: string;
     link?: string;
     icon?: string;
+    color?: string;
 }
 
 const SquareContent = (props: SquareContentProps) => {
@@ -13,7 +14,7 @@ const SquareContent = (props: SquareContentProps) => {
         <div className="square-content m-4 text-center">
             <div className="flex justify-center items-center">
                 {props.image && !props.icon && <img src={props.image} alt={props.title} />}
-                {props.icon && <i className={`mdi mdi-${props.icon} text-4xl`}></i>}
+                {props.icon && <i className={`mdi mdi-${props.icon} text-8xl`} style={{ color: props.color }}></i>}
             </div>
             <div className="text-2xl font-bold mb-6">{props.title}</div>
             <div className="mb-6">{props.description}</div>

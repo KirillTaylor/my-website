@@ -1,32 +1,32 @@
+import { Box } from "@mui/material";
 import React from "react";
-import { getBannerContent } from "helpers/content";
+import { getBannerContent } from "utils/content";
 
 export default function Banner(): React.ReactNode {
     const bannerContent = getBannerContent();
     return (
-        <div className="w-[100%] p-6 bg-sky-900 text-white">
-            <div className="container flex items-center">
-                {bannerContent.title && <div className="banner-title mr-4">
+        <Box sx={{ width: '100%', backgroundColor: 'primary.main', padding: 4 }}>
+            <div className="container flex items-center flex-col">
+                {bannerContent.title && <div className="mb-4 text-white">
                     {bannerContent.title}
                 </div>}
-                <div className="banner-items flex w-full justify-center">
-                    {bannerContent.items.map((item) => (
-                        <div key={item.id}>
-                            <a href={item.link} target="_blank" rel="noopener noreferrer">
-                                <div className="banner-item mx-4 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 w-[50px] h-[50px] md:w-[80px] md:h-[80px]"
-                                    style={{
-                                        backgroundImage: `url(${item.image})`,
-                                        backgroundSize: 'contain',
-                                        backgroundPosition: 'center',
-                                        backgroundRepeat: 'no-repeat',
-                                    }}
-                                >
-                                </div>
-                            </a>
-                        </div>
+                <div className="grid grid-cols-3 md:grid-cols-6 w-auto justify-center gap-4 items-center">
+                    {bannerContent.items.map((item, i) => (
+                        <a href={item.link} target="_blank" rel="noopener noreferrer" key={i} className="flex flex-col items-center">
+                            <div className="md:grayscale opacity-100 md:opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 w-[50px] h-[50px] md:w-[80px] md:h-[80px]"
+                                style={{
+                                    backgroundImage: `url(${item.image})`,
+                                    backgroundSize: 'contain',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat',
+                                }}
+                            >
+                            </div>
+                            <div className="md:hidden text-xs my-2 text-white">{item.title}</div>
+                        </a>
                     ))}
                 </div>
             </div>
-        </div>
+        </Box>
     )
 }
