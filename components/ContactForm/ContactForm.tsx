@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { validateEmail, validatePhone } from "helpers/input";
+import { validateEmail, validatePhone } from "utils/input";
 import { capitalize } from "@mui/material";
 
 // Field safety for type iteration
@@ -164,7 +164,9 @@ const ContactForm = () => {
                             />
                         </div>
                     ))}
-                    <Button variant="contained" color="primary" type="submit">{'Get in touch'}</Button>
+                    <div className="flex flex-col p-2">
+                        <Button variant="contained" color="primary" type="submit">{'Get in touch'}</Button>
+                    </div>
                     {formStatus.type === 'success' && <p className="text-green-500">{formStatus.message}</p>}
                     {formStatus.type === 'error' && <p className="text-red-500">{formStatus.message}</p>}
                 </Box>

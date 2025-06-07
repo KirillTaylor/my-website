@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { HeaderMenuItem } from "./IHeader";
-import { getMainMenu } from "helpers/content";
-import { getWebsiteName } from "helpers/utils";
+import { getMainMenu } from "utils/content";
+import { getWebsiteName } from "utils/utils";
 import { Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 

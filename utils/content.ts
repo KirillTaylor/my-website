@@ -1,51 +1,63 @@
 import { HeaderMenuItem } from "components/Header/IHeader"
 import { IBanner } from "components/Banner/IBanner";
+import { Slide } from "components/Carousel/ICarousel";
 
 export const getBannerContent = (): IBanner => {
     // TODO: Get the banner content dynamically
     return {
+        title: "Our technology partners",
         items: [
             {
-                id: 0,
-                title: "PHP",
-                image: "/assets/img/php.png",
-                link: "https://www.php.net/",
-            },
-            {
-                id: 1,
                 title: "Next.js",
                 image: "https://www.drupal.org/files/project-images/nextjs-icon-dark-background.png",
                 link: "https://nextjs.org/",
             },
             {
-                id: 2,
                 title: "React",
                 image: "/assets/img/react.png",
                 link: "https://react.dev/",
             },      
             {
-                id: 3,
                 title: "Vue.js",
                 image: "/assets/img/vue.js.png",
                 link: "https://vuejs.org/",
             },
-            
+            {
+                title: "PHP",
+                image: "/assets/img/php.png",
+                link: "https://www.php.net/",
+            }, 
+            {
+                title: "WordPress",
+                image: "/assets/img/wordpress.png",
+                link: "https://wordpress.org/",
+            }, 
+            {
+                title: "Laravel",
+                image: "/assets/img/laravel.png",
+                link: "https://laravel.com/",
+            },               
         ]
     }
 }
 
-export const getSlides = () => {
+export const getSlides = (): Slide[] => {
     // TODO: Get the slides dynamically
     return [
         {
-            title: 'Slide 1',
-            description: 'Description 1',
-        },
-        {
-            title: 'Slide 2',
-            description: 'Description 2',
-        },
-        
+            title: 'Gero Dashboard',
+            description: [
+                'A revolutionary Crypto wallet experience unites Web2 and Web3, offering native financial integration, ADA cashback rewards, governance, staking, swapping, and seamless off & on ramps - all in one powerful platform.',
+                'State-of-the-art Cardano & Apex Fusion wallet for desktop.'
+            ],
+            image: '/assets/img/clients/gero-dashboard.png',
+            tags: ['Vite', 'Vue.js', 'Vuetify'],
+            link: [
+                { href: 'https://chromewebstore.google.com/detail/gero-dashboard/bgpipimickeadkjlklgciifhnalhdjhe', text: 'View Project' },
+                { href: 'https://gerowallet.io/', text: 'Company Website' }
+            ],
+            backgroundColor: '#000000',
+        },        
     ]
 }
 

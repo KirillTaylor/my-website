@@ -1,7 +1,7 @@
 import React from "react";
 import Socials from "components/shared/Socials/Socials";
-import { getWebsiteName } from "helpers/utils";
-import { getMainMenu } from "helpers/content";
+import { getWebsiteName } from "utils/utils";
+import { getMainMenu } from "utils/content";
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -12,10 +12,10 @@ const Footer = () => {
                 <div className="row">
                     <div className="col-10">
                         <div className="footer-content">
-                            <div className="website-name mb-4 text-2xl font-bold">
+                            <div className="website-name mb-4 text-2xl font-bold text-center">
                                 {getWebsiteName()}
                             </div>
-                            <ul>
+                            <ul className="flex flex-row gap-2 flex-wrap justify-center mb-4">
                                 {footerMenu.map((menuItem, index) => (
                                     <li key={index}>
                                         <a href={menuItem.link}>{menuItem.name}</a>
