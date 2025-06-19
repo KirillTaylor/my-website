@@ -4,60 +4,27 @@ import React, { useState } from "react";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { validateEmail, validatePhone } from "helpers/input";
+import { getContactFormFields, validateEmail, validatePhone } from "utils/input";
 import { capitalize } from "@mui/material";
-
-// Field safety for type iteration
-type Field = {
-    name: string;
-    label: string;
-    multiline?: boolean;
-    rows?: number;
-    required?: boolean;
-}
+import { contactFormApi } from "utils/api";
+import { Field } from "components/ContactForm/ContactFormTypes";
 
 const ContactForm = () => {
 
     // Field array
-    const fieldsArray: Field[] = [
-        {
-            name: 'name',
-            label: 'Name',
-            multiline: false,
-            required: true
-        },
-        {
-            name: 'email',
-            label: 'Email',
-            multiline: false,
-            required: true
-        },
-        {
-            name: 'phone',
-            label: 'Phone',
-            multiline: false,
-            required: true
-        },
-        {
-            name: 'message',
-            label: 'Message',
-            multiline: true,
-            rows: 5,
-            required: true
-        }
-    ];
+    const fieldsArray: Field[] = getContactFormFields();
 
     // Use the array above to create a state for errors on all fields
-    const errorsState = fieldsArray.map(field => ({ [field.name]: '' })).reduce((acc, curr) => ({ ...acc, ...curr }), {});
+    const errorsState: Record<string, string> = fieldsArray.map(field => ({ [field.name]: '' })).reduce((acc, curr) => ({ ...acc, ...curr }), {});
     errorsState.formErrors = '';
-    const valuesState = fieldsArray.map(field => ({ [field.name]: '' })).reduce((acc, curr) => ({ ...acc, ...curr }), {});
+    const valuesState: Record<string, string> = fieldsArray.map(field => ({ [field.name]: '' })).reduce((acc, curr) => ({ ...acc, ...curr }), {});
 
     // Field errors state
-    const [errors, setErrors] = useState(errorsState);
+    const [errors, setErrors] = useState<Record<string, string>>(errorsState);
     // Field values state
-    const [values, setValues] = useState(valuesState);
+    const [values, setValues] = useState<Record<string, string>>(valuesState);
 
-    const [formStatus, setFormStatus] = useState({
+    const [formStatus, setFormStatus] = useState<{ type: string, message: string }>({
         type: '',
         message: ''
     });
@@ -70,9 +37,9 @@ const ContactForm = () => {
         }); 
 
         // Get the value, required, and name of the field
-        const value = event.target.value;
-        const required = event.target.required;
-        const name = event.target.name;
+        const value: string = event.target.value;
+        const required: boolean = event.target.required;
+        const name: string = event.target.name;
 
         if (!value && required) {
             setErrors(prev => ({
@@ -103,7 +70,7 @@ const ContactForm = () => {
     };
 
     // Handle form submission
-    const handleOnFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleOnFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
         // Reset form errors
@@ -113,11 +80,10 @@ const ContactForm = () => {
         });
 
         // Check if there are any field errors
-        const hasFieldErrors = Object.entries(errors).some(([key, value]) => key !== 'formErrors' && value !== '');
-        const hasEmptyFields = Object.values(values).some(value => value === '');
+        const hasFieldErrors: boolean = Object.entries(errors).some(([key, value]) => key !== 'formErrors' && value !== '');
+        const hasEmptyFields: boolean = Object.values(values).some(value => value === '');
         
         if (!hasFieldErrors && !hasEmptyFields) {
-
             // Handle successful form submission here
             setFormStatus({
                 type: 'success',
@@ -128,6 +94,13 @@ const ContactForm = () => {
                 type: 'error',
                 message: 'There was an error with your submission. Please try again.'
             });
+        }
+
+        const response = await contactFormApi.post(values);
+        if(response.success) {
+            // reset form
+            setValues(valuesState);
+            setErrors(errorsState);
         }
     };
 
@@ -164,7 +137,9 @@ const ContactForm = () => {
                             />
                         </div>
                     ))}
-                    <Button variant="contained" color="primary" type="submit">{'Get in touch'}</Button>
+                    <div className="flex flex-col p-2">
+                        <Button variant="contained" color="primary" type="submit">{'Get in touch'}</Button>
+                    </div>
                     {formStatus.type === 'success' && <p className="text-green-500">{formStatus.message}</p>}
                     {formStatus.type === 'error' && <p className="text-red-500">{formStatus.message}</p>}
                 </Box>

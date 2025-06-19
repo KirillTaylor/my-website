@@ -1,7 +1,6 @@
 .carousel-container{
     width: 100%;
     position: relative;
-    height: 40vh;
 }
 .carousel-viewport{
     width: 100%;
@@ -10,7 +9,7 @@
     overflow: hidden;
 }
 .carousel-wrapper{
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -22,6 +21,7 @@
     width: 100%;
     transition: all 0.5s ease;
     position: relative;
+    padding: 2rem;
 }
 .carousel-nav{
     position: absolute;

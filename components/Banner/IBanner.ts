@@ -4,7 +4,6 @@ export interface IBanner {
 }
 
 export interface IBannerItem {
-    id: number;
     title: string;
     image: string;
     link: string;
