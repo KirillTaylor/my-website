@@ -4,49 +4,15 @@ import React, { useState } from "react";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { validateEmail, validatePhone } from "utils/input";
+import { getContactFormFields, validateEmail, validatePhone } from "utils/input";
 import { capitalize } from "@mui/material";
 import { contactFormApi } from "utils/api";
-
-// Field safety for type iteration
-type Field = {
-    name: string;
-    label: string;
-    multiline?: boolean;
-    rows?: number;
-    required?: boolean;
-}
+import { Field } from "components/ContactForm/ContactFormTypes";
 
 const ContactForm = () => {
 
     // Field array
-    const fieldsArray: Field[] = [
-        {
-            name: 'name',
-            label: 'Name',
-            multiline: false,
-            required: true
-        },
-        {
-            name: 'email',
-            label: 'Email',
-            multiline: false,
-            required: true
-        },
-        {
-            name: 'phone',
-            label: 'Phone',
-            multiline: false,
-            required: true
-        },
-        {
-            name: 'message',
-            label: 'Message',
-            multiline: true,
-            rows: 5,
-            required: true
-        }
-    ];
+    const fieldsArray: Field[] = getContactFormFields();
 
     // Use the array above to create a state for errors on all fields
     const errorsState = fieldsArray.map(field => ({ [field.name]: '' })).reduce((acc, curr) => ({ ...acc, ...curr }), {});
@@ -131,7 +97,11 @@ const ContactForm = () => {
         }
 
         const response = await contactFormApi.post(values);
-        console.log(response);
+        if(response.success) {
+            // reset form
+            setValues(valuesState);
+            setErrors(errorsState);
+        }
     };
 
     return (

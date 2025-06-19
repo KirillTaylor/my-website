@@ -41,7 +41,8 @@ export async function POST(request: Request) {
             Message: ${message}
         `);
 
-    await mailerSend.email.send(emailParams);
+    const apiResponse = await mailerSend.email.send(emailParams);
+    const success = apiResponse.statusCode >= 200 && apiResponse.statusCode < 300;
 
-    return NextResponse.json({ ...body, timestamp: Date.now() });
+    return NextResponse.json({ ...body, timestamp: Date.now(), success });
 }
