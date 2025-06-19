@@ -15,16 +15,16 @@ const ContactForm = () => {
     const fieldsArray: Field[] = getContactFormFields();
 
     // Use the array above to create a state for errors on all fields
-    const errorsState = fieldsArray.map(field => ({ [field.name]: '' })).reduce((acc, curr) => ({ ...acc, ...curr }), {});
+    const errorsState: Record<string, string> = fieldsArray.map(field => ({ [field.name]: '' })).reduce((acc, curr) => ({ ...acc, ...curr }), {});
     errorsState.formErrors = '';
-    const valuesState = fieldsArray.map(field => ({ [field.name]: '' })).reduce((acc, curr) => ({ ...acc, ...curr }), {});
+    const valuesState: Record<string, string> = fieldsArray.map(field => ({ [field.name]: '' })).reduce((acc, curr) => ({ ...acc, ...curr }), {});
 
     // Field errors state
-    const [errors, setErrors] = useState(errorsState);
+    const [errors, setErrors] = useState<Record<string, string>>(errorsState);
     // Field values state
-    const [values, setValues] = useState(valuesState);
+    const [values, setValues] = useState<Record<string, string>>(valuesState);
 
-    const [formStatus, setFormStatus] = useState({
+    const [formStatus, setFormStatus] = useState<{ type: string, message: string }>({
         type: '',
         message: ''
     });
@@ -37,9 +37,9 @@ const ContactForm = () => {
         }); 
 
         // Get the value, required, and name of the field
-        const value = event.target.value;
-        const required = event.target.required;
-        const name = event.target.name;
+        const value: string = event.target.value;
+        const required: boolean = event.target.required;
+        const name: string = event.target.name;
 
         if (!value && required) {
             setErrors(prev => ({
@@ -80,8 +80,8 @@ const ContactForm = () => {
         });
 
         // Check if there are any field errors
-        const hasFieldErrors = Object.entries(errors).some(([key, value]) => key !== 'formErrors' && value !== '');
-        const hasEmptyFields = Object.values(values).some(value => value === '');
+        const hasFieldErrors: boolean = Object.entries(errors).some(([key, value]) => key !== 'formErrors' && value !== '');
+        const hasEmptyFields: boolean = Object.values(values).some(value => value === '');
         
         if (!hasFieldErrors && !hasEmptyFields) {
             // Handle successful form submission here
