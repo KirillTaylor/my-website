@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { validateEmail, validatePhone } from "utils/input";
 import { capitalize } from "@mui/material";
+import { contactFormApi } from "utils/api";
 
 // Field safety for type iteration
 type Field = {
@@ -103,7 +104,7 @@ const ContactForm = () => {
     };
 
     // Handle form submission
-    const handleOnFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleOnFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
         // Reset form errors
@@ -117,7 +118,6 @@ const ContactForm = () => {
         const hasEmptyFields = Object.values(values).some(value => value === '');
         
         if (!hasFieldErrors && !hasEmptyFields) {
-
             // Handle successful form submission here
             setFormStatus({
                 type: 'success',
@@ -129,6 +129,9 @@ const ContactForm = () => {
                 message: 'There was an error with your submission. Please try again.'
             });
         }
+
+        const response = await contactFormApi.post(values);
+        console.log(response);
     };
 
     return (
