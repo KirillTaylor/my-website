@@ -5,7 +5,6 @@ import Carousel from "components/Carousel/Carousel";
 import Banner from "components/Banner/Banner";
 import { getSlides } from "utils/content";
 import ContactForm from "components/ContactForm/ContactForm";
-import DialogWrapper from "components/DialogWrapper/DialogWrapper";
 import Divider from "components/shared/Divider/Divider";
 
 
@@ -26,6 +25,5 @@ export default function Page(): React.ReactNode {
         <Carousel slides={slides}  />
         <Divider />
         <ContactForm />
-        <DialogWrapper />
     </>)
 }
